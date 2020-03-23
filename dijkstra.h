@@ -6,6 +6,7 @@
 #include "row.h"
 #include "vertex.h"
 
+/*
 struct CustomCompare
 {
     bool operator()(const Row* left, const Row* right)
@@ -13,8 +14,12 @@ struct CustomCompare
         return left->distance > right->distance;
     }
 };
+*/
 
-void dijkstra(const Graph* graph);
+Graph dijkstra(const Graph& graph, int startingVertex);
+void updateDistances(Row* table, Vertex** vertices, int processedVertex);
+int findLowestDistance(Row* tab, int size);
+
 
 
 #endif // DIJKSTRA_H_INCLUDED

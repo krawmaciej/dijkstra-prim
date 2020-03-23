@@ -1,7 +1,17 @@
 #include <iostream>
 #include "graph.h"
 
-Graph createGraphFromMatrix(const int matrix[][3], int n)
+void connectVertex(Vertex* &vertex, int connectedTo, int distance)
+{
+    Vertex* newVertex = new Vertex;
+    newVertex->connectedTo = connectedTo;
+    newVertex->distance = distance;
+    newVertex->next = vertex;
+
+    vertex = newVertex;
+}
+
+Graph createGraphFromMatrix(const int matrix[][5], int n)
 {
     Graph graph;
     // table of vertices connected to vertices
@@ -18,25 +28,34 @@ Graph createGraphFromMatrix(const int matrix[][3], int n)
     return graph;
 }
 
-void connectVertex(Vertex* &vertex, int connectedTo, int distance)
+void deleteGraph(Graph& graph)
 {
-    Vertex* newVertex = new Vertex;
-    newVertex->connectedTo = connectedTo;
-    newVertex->distance = distance;
-    newVertex->next = vertex;
-
-    vertex = newVertex;
+    Vertex** vertices = graph.vertices;
+    for (int i = 0; i < graph.size; ++i)
+        deleteVertices(vertices[i]);
+    delete[] vertices;
 }
 
-void printGraph(const Graph* graph)
+void deleteVertices(Vertex* vertex)
+{
+    Vertex* tmp;
+    while (vertex)
+    {
+        tmp = vertex;
+        vertex = vertex->next;
+        delete tmp;
+    }
+}
+
+void printGraph(const Graph& graph)
 {
     using std::cout;
     using std::endl;
 
     Vertex* vertex;
-    for (int i = 0; i < graph->size; ++i)
+    for (int i = 0; i < graph.size; ++i)
     {
-        vertex = graph->vertices[i];
+        vertex = graph.vertices[i];
         cout << i << "->";
         while (vertex)
         {

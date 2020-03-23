@@ -8,23 +8,29 @@ int main()
 {
     using namespace std;
 
-    const int VERTICES = 3;
+    const int VERTICES = 5;
 
     int matrix[VERTICES][VERTICES] = {
-    /*     0  1  2*/
-    /*0*/ {0, 3, 5},
-    /*1*/ {3, 0, 0},
-    /*2*/ {5, 0, 0}
+    /*     0  1  2  3  4 */
+    /*0*/ {0, 4, 1, 0, 0},
+    /*1*/ {4, 0, 0, 1, 9},
+    /*2*/ {1, 0, 0, 7, 7}, // {1, 0, 0, 7, 6}
+    /*3*/ {0, 1, 7, 0, 8}, // {0, 1, 7, 0, 14}
+    /*4*/ {0, 9, 7, 8, 0}
     };
 
 
     Graph graph = createGraphFromMatrix(matrix, VERTICES);
 
-    dijkstra(&graph);
+    cout << "Graph:\n";
+    printGraph(graph);
 
-    cout << endl;
+    cout << endl << endl;
+    Graph shortestPath = dijkstra(graph, 3);
+    printGraph(shortestPath);
 
-    printGraph(&graph);
 
+    deleteGraph(graph);
+    deleteGraph(shortestPath);
     return 0;
 }

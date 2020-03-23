@@ -12,8 +12,8 @@
 
 struct Row
 {
-    Vertex* vertex;
-    int distance;
+    bool visited = false;
+    int distance = INT_MAX; // "infinity"
     int previous;
 };
 

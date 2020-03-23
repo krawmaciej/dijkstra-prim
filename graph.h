@@ -11,8 +11,10 @@ struct Graph
 };
 
 void connectVertex(Vertex*& vertex, int connectedTo, int distance);
-Graph createGraphFromMatrix(const int matrix[][3], int n);
-void printGraph(const Graph* graph);
+Graph createGraphFromMatrix(const int matrix[][5], int n);
+void deleteGraph(Graph& graph);
+void deleteVertices(Vertex* vertex);
+void printGraph(const Graph& graph);
 
 #endif // GRAPH_H_INCLUDED
 
