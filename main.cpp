@@ -3,6 +3,7 @@
 #include "graph.h"
 #include "vertex.h"
 #include "row.h"
+#include "prim.h"
 
 int main()
 {
@@ -25,9 +26,13 @@ int main()
     cout << "Graph:\n";
     printGraph(graph);
 
-    cout << endl << endl;
+    cout << endl << endl << "Shortest path:\n";
     Graph shortestPath = dijkstra(graph, 3);
     printGraph(shortestPath);
+
+    cout << endl << endl << "MST:\n";
+    Graph mst = prim(graph, 3);
+    printGraph(mst);
 
 
     deleteGraph(graph);

@@ -6,7 +6,7 @@
 #include "vertex.h"
 #include "dijkstra.h"
 
-Graph dijkstra(const Graph& graph, int startingVertex)
+Graph dijkstra(const Graph& graph, int startingVertex, bool prim)
 {
     // initialize shortest path graph (tree)
     Graph shortestPathGraph;
@@ -32,13 +32,13 @@ Graph dijkstra(const Graph& graph, int startingVertex)
     for (int processedVertex = startingVertex;
             visitedSize < graph.size; ++visitedSize)
     {
-        updateDistances(table, vertices, processedVertex);
+        updateDistances(table, vertices, processedVertex, prim);
         processedVertex = findLowestDistance(table, graph.size);
         table[processedVertex].visited = true;
 
         // connect previous vertex with vertex with current lowest distance
         int previous = table[processedVertex].previous;
-        int distanceBetween = table[processedVertex].distance - table[previous].distance;
+        int distanceBetween = table[processedVertex].distance - (int(!prim) * table[previous].distance);
         connectVertex(shortestPathGraph.vertices[processedVertex], previous, distanceBetween);
         connectVertex(shortestPathGraph.vertices[previous], processedVertex, distanceBetween);
     }
@@ -46,7 +46,7 @@ Graph dijkstra(const Graph& graph, int startingVertex)
     return shortestPathGraph;
 }
 
-void updateDistances(Row* table, Vertex** vertices, int processedVertex)
+void updateDistances(Row* table, Vertex** vertices, int processedVertex, bool prim)
 {
     for (Vertex* vertex = vertices[processedVertex];
              vertex; vertex = vertex->next)
@@ -57,7 +57,7 @@ void updateDistances(Row* table, Vertex** vertices, int processedVertex)
             continue;
 
         int newDistance =
-            table[processedVertex].distance + vertex->distance;
+            (int(!prim) * table[processedVertex].distance) + vertex->distance;
 
         if (adjVertexRow.distance > newDistance)
         {

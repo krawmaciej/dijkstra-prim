@@ -16,8 +16,8 @@ struct CustomCompare
 };
 */
 
-Graph dijkstra(const Graph& graph, int startingVertex);
-void updateDistances(Row* table, Vertex** vertices, int processedVertex);
+Graph dijkstra(const Graph& graph, int startingVertex, bool prim = false);
+void updateDistances(Row* table, Vertex** vertices, int processedVertex, bool prim = false);
 int findLowestDistance(Row* tab, int size);
 
 

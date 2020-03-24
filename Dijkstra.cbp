@@ -37,6 +37,7 @@
 		<Unit filename="graph.cpp" />
 		<Unit filename="graph.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="prim.h" />
 		<Unit filename="row.h" />
 		<Unit filename="vertex.h" />
 		<Extensions>
