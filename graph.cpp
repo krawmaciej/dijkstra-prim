@@ -1,7 +1,7 @@
 #include <iostream>
 #include "graph.h"
 
-void connectVertex(Vertex* &vertex, int connectedTo, int distance)
+void connectVertex(Vertex* &vertex, int connectedTo, float distance)
 {
     Vertex* newVertex = new Vertex;
     newVertex->connectedTo = connectedTo;
@@ -11,7 +11,7 @@ void connectVertex(Vertex* &vertex, int connectedTo, int distance)
     vertex = newVertex;
 }
 
-Graph createGraphFromMatrix(const int matrix[][VERTICES], int n)
+Graph createGraphFromMatrix(const float matrix[][VERTICES], int n)
 {
     Graph graph;
     // table of vertices connected to vertices
