@@ -11,7 +11,7 @@ void connectVertex(Vertex* &vertex, int connectedTo, int distance)
     vertex = newVertex;
 }
 
-Graph createGraphFromMatrix(const int matrix[][5], int n)
+Graph createGraphFromMatrix(const int matrix[][VERTICES], int n)
 {
     Graph graph;
     // table of vertices connected to vertices
@@ -64,5 +64,39 @@ void printGraph(const Graph& graph)
             vertex = vertex->next;
         }
         cout << endl;
+    }
+}
+
+void printTree(const Graph& graph)
+{
+    using std::cout;
+
+    // initialize visited table with false
+    bool* visited = new bool[graph.size] {false};
+    int countVisited = 0;
+
+    for (int i = 0; countVisited < graph.size; ++i)
+    {
+        //cout << "i: " << i << std::endl;
+        //cout << "visited: " << countVisited << std::endl;
+        Vertex* vertex = graph.vertices[i];
+        // if vertex wasn't visited yet
+        if (!visited[i])
+        {
+            visited[i] = true;
+            ++countVisited;
+        }
+
+        while (vertex)
+        {
+            // if vertex wasn't visited yet
+            if (!visited[vertex->connectedTo])
+            {
+                cout << i << "-" << vertex->connectedTo << ",";
+                visited[vertex->connectedTo] = true;
+                ++countVisited;
+            }
+            vertex = vertex->next;
+        }
     }
 }

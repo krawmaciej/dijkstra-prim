@@ -9,7 +9,7 @@ int main()
 {
     using namespace std;
 
-    const int VERTICES = 5;
+//    const int INFINITY = INT_MAX/2;
 
     int matrix[VERTICES][VERTICES] = {
     /*     0  1  2  3  4 */
@@ -19,7 +19,6 @@ int main()
     /*3*/ {0, 1, 7, 0, 8}, // {0, 1, 7, 0, 14}
     /*4*/ {0, 9, 7, 8, 0}
     };
-
 
     Graph graph = createGraphFromMatrix(matrix, VERTICES);
 
@@ -31,9 +30,11 @@ int main()
     printGraph(shortestPath);
 
     cout << endl << endl << "MST:\n";
+    prim(graph, 3);
     Graph mst = prim(graph, 3);
     printGraph(mst);
-
+    cout << endl;
+    printTree(mst);
 
     deleteGraph(graph);
     deleteGraph(shortestPath);

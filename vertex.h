@@ -4,7 +4,7 @@
 struct Vertex
 {
     int connectedTo;
-    int distance;
+    float distance;
     Vertex* next = nullptr;
 };
 

@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include "vertex.h"
+#define VERTICES 5
 
 struct Graph
 {
@@ -11,10 +12,11 @@ struct Graph
 };
 
 void connectVertex(Vertex*& vertex, int connectedTo, int distance);
-Graph createGraphFromMatrix(const int matrix[][5], int n);
+Graph createGraphFromMatrix(const int matrix[][VERTICES], int n);
 void deleteGraph(Graph& graph);
 void deleteVertices(Vertex* vertex);
 void printGraph(const Graph& graph);
+void printTree(const Graph& graph);
 
 #endif // GRAPH_H_INCLUDED
 
