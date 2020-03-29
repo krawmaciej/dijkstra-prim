@@ -38,7 +38,9 @@ Graph dijkstra(const Graph& graph, int startingVertex, bool prim)
 
         // connect previous vertex with vertex with current lowest distance
         int previous = table[processedVertex].previous;
-        float distanceBetween = table[processedVertex].distance - (int(!prim) * table[previous].distance);
+        float distanceBetween = table[processedVertex].distance;
+        distanceBetween -= float(1-int(prim)) * table[previous].distance;
+        std::cout << "distbet: prim to int: " << float(1-int(prim)) * table[previous].distance << std::endl;
         connectVertex(shortestPathGraph.vertices[processedVertex], previous, distanceBetween);
         connectVertex(shortestPathGraph.vertices[previous], processedVertex, distanceBetween);
     }
