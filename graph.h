@@ -4,8 +4,6 @@
 #include <iostream>
 #include "vertex.h"
 
-#define VERTICES 5
-
 struct Graph
 {
     Vertex** vertices = nullptr;
@@ -13,7 +11,7 @@ struct Graph
 };
 
 void connectVertex(Vertex*& vertex, int connectedTo, float distance);
-Graph createGraphFromMatrix(const float matrix[][VERTICES], int n);
+Graph createGraphFromMatrix(float** matrix, int n);
 void deleteGraph(Graph& graph);
 void deleteVertices(Vertex* vertex);
 void printGraph(const Graph& graph);

@@ -31,7 +31,7 @@ std::vector<Point> getInput(std::istream& cin)
     return points;
 }
 
-float** createMatrixOfCompleteGraph(std::vector<Point> points)
+float** createMatrixOfCompleteGraph(const std::vector<Point>& points)
 {
     // memory for matrix
     float** matrix = new float*[points.size()];
@@ -46,6 +46,15 @@ float** createMatrixOfCompleteGraph(std::vector<Point> points)
         for (unsigned int j = i+1; j < points.size(); ++j)
             matrix[i][j] = matrix[j][i] =
                 distanceBetweenPoints(points[i], points[j]);
+
+    return matrix;
+}
+
+void freeMemoryOfMatrix(float** matrix, int n)
+{
+    for (int i = 0; i < n; ++i)
+        delete[] matrix[i];
+    delete[] matrix;
 }
 
 int main()
@@ -57,17 +66,26 @@ int main()
     for (unsigned int i = 0; i < points.size(); ++i)
         cout << i << ": " << points[i].x << ", " << points[i].y << endl;
 
+    float** matrix = createMatrixOfCompleteGraph(points);
 
-    float matrix[VERTICES][VERTICES] = {
-    /*     0  1  2  3  4 */
-    /*0*/ {0, 4, 1, 0, 0},
-    /*1*/ {4, 0, 0, 1, 9},
-    /*2*/ {1, 0, 0, 7, 7}, // {1, 0, 0, 7, 6}
-    /*3*/ {0, 1, 7, 0, 8}, // {0, 1, 7, 0, 14}
-    /*4*/ {0, 9, 7, 8, 0}
-    };
+//    float matrix[VERTICES][VERTICES] = {
+//    /*     0  1  2  3  4 */
+//    /*0*/ {0, 4, 1, 0, 0},
+//    /*1*/ {4, 0, 0, 1, 9},
+//    /*2*/ {1, 0, 0, 7, 7}, // {1, 0, 0, 7, 6}
+//    /*3*/ {0, 1, 7, 0, 8}, // {0, 1, 7, 0, 14}
+//    /*4*/ {0, 9, 7, 8, 0}
+//    };
 
-    Graph graph = createGraphFromMatrix(matrix, VERTICES);
+    cout << points.size() << endl;
+    for (int i = 0; i < points.size(); ++i)
+    {
+        for (int j = 0; j < points.size(); ++j)
+            cout << matrix[i][j] << " ";
+        cout << endl;
+    }
+
+    Graph graph = createGraphFromMatrix(matrix, points.size());
 
     cout << "Graph:\n";
     printGraph(graph);
@@ -85,5 +103,7 @@ int main()
 
     deleteGraph(graph);
     deleteGraph(shortestPath);
+    deleteGraph(mst);
+    freeMemoryOfMatrix(matrix, points.size());
     return 0;
 }

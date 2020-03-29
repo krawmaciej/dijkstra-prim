@@ -14,7 +14,7 @@
 struct Row
 {
     bool visited = false;
-    float distance = std::numeric_limits<float>::infinity(); // "infinity"
+    float distance = 200.0f;//std::numeric_limits<float>::infinity(); // "infinity"
     int previous;
 };
 

@@ -38,7 +38,7 @@ Graph dijkstra(const Graph& graph, int startingVertex, bool prim)
 
         // connect previous vertex with vertex with current lowest distance
         int previous = table[processedVertex].previous;
-        int distanceBetween = table[processedVertex].distance - (int(!prim) * table[previous].distance);
+        float distanceBetween = table[processedVertex].distance - (int(!prim) * table[previous].distance);
         connectVertex(shortestPathGraph.vertices[processedVertex], previous, distanceBetween);
         connectVertex(shortestPathGraph.vertices[previous], processedVertex, distanceBetween);
     }
@@ -56,7 +56,7 @@ void updateDistances(Row* table, Vertex** vertices, int processedVertex, bool pr
         if (adjVertexRow.visited)
             continue;
 
-        int newDistance =
+        float newDistance =
             (int(!prim) * table[processedVertex].distance) + vertex->distance;
 
         if (adjVertexRow.distance > newDistance)
