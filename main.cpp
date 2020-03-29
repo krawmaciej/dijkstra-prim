@@ -64,8 +64,10 @@ int main()
     for (unsigned int i = 0; i < points.size(); ++i)
         cout << i << ": " << points[i].x << ", " << points[i].y << endl;
 
-    float** test = createMatrixOfCompleteGraph(points);
 
+    float** matrix = createMatrixOfCompleteGraph(points);
+/*
+//  PRINT MATRIX
     cout << "graph size: " << points.size() << endl;
     for (int i = 0; i < points.size(); ++i)
     {
@@ -73,22 +75,9 @@ int main()
             cout << test[i][j] << ' ';
         cout << endl;
     }
+*/
 
-    const float matrix[GRAPH_VERTICES][GRAPH_VERTICES] = {
-        {0.0f, 2.5f, 4.5f},
-        {2.0f, 0.0f, 3.5f},
-        {4.5f, 3.5f, 0.0f}
-    };
-
-//    /*     0  1  2  3  4 */
-//    /*0*/ {0.0f, 4.5f, 1.1f, 0.0f, 0.0f},
-//    /*1*/ {4.5f, 0.0f, 0.0f, 1.1f, 9.3f},
-//    /*2*/ {1.1f, 0.0f, 0.0f, 7.3f, 7.3f}, // {1, 0, 0, 7, 6}
-//    /*3*/ {0.0f, 1.1f, 7.3f, 0.0f, 8.4f}, // {0, 1, 7, 0, 14}
-//    /*4*/ {0.0f, 9.3f, 7.3f, 8.4f, 0.0f}
-//    };
-
-    Graph graph = createGraphFromMatrix(matrix, GRAPH_VERTICES);
+    Graph graph = createGraphFromMatrix(matrix, points.size());
 
     cout << "Graph:\n";
     printGraph(graph);
@@ -101,15 +90,12 @@ int main()
     Graph shortestPath = dijkstra(graph, startingVertex);
     printGraph(shortestPath);
 
-    cout << endl;
-    printTree(shortestPath);
+    cout << endl << "Shortest path tree: " << shortestPath.tree;
 
     cout << endl << endl << "MST:\n";
     Graph mst = prim(graph, startingVertex);
     printGraph(mst);
-
-    cout << endl;
-    printTree(mst);
+    cout << endl << "MSTree: " << mst.tree;
 
     deleteGraph(graph);
     deleteGraph(shortestPath);

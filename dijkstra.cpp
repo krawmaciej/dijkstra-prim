@@ -40,8 +40,7 @@ Graph dijkstra(const Graph& graph, int startingVertex, bool prim)
         int previous = table[processedVertex].previous;
         float distanceBetween = table[processedVertex].distance; //- (int(!prim) * table[previous].distance);
         distanceBetween -= int(!prim) * table[previous].distance;
-        connectVertex(shortestPathGraph.vertices[processedVertex], previous, distanceBetween);
-        connectVertex(shortestPathGraph.vertices[previous], processedVertex, distanceBetween);
+        connectVertex(shortestPathGraph, processedVertex, previous, distanceBetween);
     }
 
     return shortestPathGraph;

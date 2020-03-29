@@ -1,7 +1,7 @@
 #include <iostream>
 #include "graph.h"
 
-void connectVertex(Vertex* &vertex, int connectedTo, float distance)
+void connectOneVertex(Vertex* &vertex, int connectedTo, float distance)
 {
     Vertex* newVertex = new Vertex;
     newVertex->connectedTo = connectedTo;
@@ -11,7 +11,14 @@ void connectVertex(Vertex* &vertex, int connectedTo, float distance)
     vertex = newVertex;
 }
 
-Graph createGraphFromMatrix(const float matrix[][GRAPH_VERTICES], int n)
+void connectVertex(Graph& graph, int from, int to, float distance)
+{
+    connectOneVertex(graph.vertices[from], to, distance);
+    connectOneVertex(graph.vertices[to], from, distance);
+    graph.tree+= std::to_string(from) + "-" + std::to_string(to) + ",";
+}
+
+Graph createGraphFromMatrix(float** matrix, int n)
 {
     Graph graph;
     // table of vertices connected to vertices
@@ -21,9 +28,9 @@ Graph createGraphFromMatrix(const float matrix[][GRAPH_VERTICES], int n)
     graph.size = n;
 
     for (int i = 0; i < n; ++i)
-        for (int j = 0; j < n; ++j)
+        for (int j = i; j < n; ++j)
             if (matrix[i][j])
-                connectVertex(graph.vertices[i], j, matrix[i][j]);
+                connectVertex(graph, i, j, matrix[i][j]);
 
     return graph;
 }
@@ -64,39 +71,5 @@ void printGraph(const Graph& graph)
             vertex = vertex->next;
         }
         cout << endl;
-    }
-}
-
-void printTree(const Graph& graph)
-{
-    using std::cout;
-
-    // initialize visited table with false
-    bool* visited = new bool[graph.size] {false};
-    int countVisited = 0;
-
-    for (int i = 0; countVisited < graph.size; ++i)
-    {
-        //cout << "i: " << i << std::endl;
-        //cout << "visited: " << countVisited << std::endl;
-        Vertex* vertex = graph.vertices[i];
-        // if vertex wasn't visited yet
-        if (!visited[i])
-        {
-            visited[i] = true;
-            ++countVisited;
-        }
-
-        while (vertex)
-        {
-            // if vertex wasn't visited yet
-            if (!visited[vertex->connectedTo])
-            {
-                cout << i << "-" << vertex->connectedTo << ",";
-                visited[vertex->connectedTo] = true;
-                ++countVisited;
-            }
-            vertex = vertex->next;
-        }
     }
 }
