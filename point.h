@@ -2,7 +2,6 @@
 #define POINT_H_INCLUDED
 #include <math.h>
 
-
 struct Point
 {
     int x;

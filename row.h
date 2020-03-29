@@ -1,7 +1,6 @@
 #ifndef ROW_H_INCLUDED
 #define ROW_H_INCLUDED
 #include "vertex.h"
-#include <limits>
 
 // Później priority queue będzie wskazywać na Row
 // na podstawie distance
@@ -14,7 +13,7 @@
 struct Row
 {
     bool visited = false;
-    float distance = 200.0f;//std::numeric_limits<float>::infinity(); // "infinity"
+    float distance = INT_MAX; // "infinity"
     int previous;
 };
 

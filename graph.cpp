@@ -11,7 +11,7 @@ void connectVertex(Vertex* &vertex, int connectedTo, float distance)
     vertex = newVertex;
 }
 
-Graph createGraphFromMatrix(float** matrix, int n)
+Graph createGraphFromMatrix(const float matrix[][GRAPH_VERTICES], int n)
 {
     Graph graph;
     // table of vertices connected to vertices

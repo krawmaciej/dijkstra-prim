@@ -23,7 +23,7 @@ Graph dijkstra(const Graph& graph, int startingVertex, bool prim)
     Vertex** vertices = graph.vertices;
 
     // Distance to starting vertex is 0 and it's visited
-    table[startingVertex].distance = 0;
+    table[startingVertex].distance = 0.0f;
     table[startingVertex].visited = true;
     int visitedSize = 1;
 
@@ -38,9 +38,8 @@ Graph dijkstra(const Graph& graph, int startingVertex, bool prim)
 
         // connect previous vertex with vertex with current lowest distance
         int previous = table[processedVertex].previous;
-        float distanceBetween = table[processedVertex].distance;
-        distanceBetween -= float(1-int(prim)) * table[previous].distance;
-        std::cout << "distbet: prim to int: " << float(1-int(prim)) * table[previous].distance << std::endl;
+        float distanceBetween = table[processedVertex].distance; //- (int(!prim) * table[previous].distance);
+        distanceBetween -= int(!prim) * table[previous].distance;
         connectVertex(shortestPathGraph.vertices[processedVertex], previous, distanceBetween);
         connectVertex(shortestPathGraph.vertices[previous], processedVertex, distanceBetween);
     }
@@ -58,8 +57,8 @@ void updateDistances(Row* table, Vertex** vertices, int processedVertex, bool pr
         if (adjVertexRow.visited)
             continue;
 
-        float newDistance =
-            (int(!prim) * table[processedVertex].distance) + vertex->distance;
+        float newDistance = int(!prim) * table[processedVertex].distance
+            + vertex->distance;
 
         if (adjVertexRow.distance > newDistance)
         {
