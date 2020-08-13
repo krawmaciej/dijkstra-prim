@@ -36,28 +36,31 @@ Graph dijkstra(const Graph& graph, int startingVertex, bool prim)
         processedVertex = findLowestDistance(table, graph.size);
         table[processedVertex].visited = true;
 
-        // connect previous vertex with vertex with current lowest distance
         int previous = table[processedVertex].previous;
-        float distanceBetween = table[processedVertex].distance; //- (int(!prim) * table[previous].distance);
+        // calculate distance between two vertices from the table
+        float distanceBetween = table[processedVertex].distance;
         distanceBetween -= int(!prim) * table[previous].distance;
+        // connect previous vertex with vertex with current lowest distance
         connectVertex(shortestPathGraph, processedVertex, previous, distanceBetween);
     }
 
+    delete[] table;
     return shortestPathGraph;
 }
 
 void updateDistances(Row* table, Vertex** vertices, int processedVertex, bool prim)
 {
     for (Vertex* vertex = vertices[processedVertex];
-             vertex; vertex = vertex->next)
+         vertex; vertex = vertex->next)
     {
+        // alias for row of an adjacent vertex
         Row &adjVertexRow = table[vertex->connectedTo];
 
-        if (adjVertexRow.visited)
-            continue;
+        if (adjVertexRow.visited) continue;
 
+        // calculate distance accordingly to algorithm used
         float newDistance = int(!prim) * table[processedVertex].distance
-            + vertex->distance;
+                            + vertex->distance;
 
         if (adjVertexRow.distance > newDistance)
         {

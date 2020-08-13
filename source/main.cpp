@@ -59,6 +59,7 @@ int main()
 {
     using namespace std;
 
+    cout << "Input: ";
     vector<Point> points = getInput(cin);
 
     for (unsigned int i = 0; i < points.size(); ++i)
@@ -82,7 +83,7 @@ int main()
     cout << "Graph:\n";
     printGraph(graph);
 
-    cout << "Podaj poczatkowy wezel: ";
+    cout << "Starting vertex: ";
     int startingVertex = 0;
     cin >> startingVertex;
 
@@ -100,6 +101,6 @@ int main()
     deleteGraph(graph);
     deleteGraph(shortestPath);
     deleteGraph(mst);
-    //freeMemoryOfMatrix(matrix);
+    freeMemoryOfMatrix(matrix, points.size());
     return 0;
 }
